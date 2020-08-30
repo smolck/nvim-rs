@@ -97,9 +97,11 @@ impl Handler for NeovimHandler {
     args: Vec<Value>,
     _neovim: Neovim<Compat<ChildStdin>>,
   ) {
+    eprintln!("Handling notification {}", name);
     match name.as_ref() {
       "set_froodle" => {
-        *self.froodle.lock().await = args[0].as_str().unwrap().to_string()
+        let s =args[0].as_str().unwrap().to_string();
+        *self.froodle.lock().await = s
       }
       _ => {}
     };
